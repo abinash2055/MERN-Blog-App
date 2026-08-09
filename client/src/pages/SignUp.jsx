@@ -10,6 +10,7 @@ import { RouteSignIn } from '@/helpers/RouteName'
 import { Link, useNavigate } from 'react-router-dom'
 import { getEvn } from '@/helpers/getEnv'
 import { showToast } from '@/helpers/showToast'
+import GoogleLogin from '@/components/GoogleLogin'
 
 const SignUp = () => {
 
@@ -58,6 +59,14 @@ const SignUp = () => {
     <div className='flex justify-center items-center h-screen w-screen'>
       <Card className="w-[400px] p-5">
         <h1 className="text-2xl font-bold text-center mb-5">Create Your Account</h1>
+
+        <div>
+          <GoogleLogin />
+          <div className="border my-10 flex justify-center items-center">
+            <span className="absolute bg-white text-sm font-bold">OR</span>
+          </div>
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {/* Name  */}
