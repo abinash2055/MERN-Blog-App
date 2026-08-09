@@ -9,7 +9,7 @@ export const Register = async (req, res, next) => {
         const checkuser = await User.findOne({ email })
 
         if (checkuser) {
-            return next(handleError(409, 'User already registered....'))
+            return next(handleError(409, 'User Already Registered....'))
         }
 
         const hashedPassword = bcryptjs.hashSync(password)
@@ -19,13 +19,12 @@ export const Register = async (req, res, next) => {
 
         await user.save();
 
-        res.status(200).json({ success: true, message: 'User Register successfully....' })
+        res.status(200).json({ success: true, message: 'Registeration Successfully....' })
 
     } catch (error) {
         next(handleError(500, error.message))
     }
 }
-
 
 export const Login = async (req, res, next) => {
     try {
@@ -33,13 +32,13 @@ export const Login = async (req, res, next) => {
         const user = await User.findOne({ email })
 
         if (!user) {
-            return next(handleError(404, 'Invalid login credentials....'))
+            return next(handleError(404, 'Invalid Login Credentials....'))
         }
         const hashedPassword = user.password
 
         const comparePassword = bcryptjs.compare(password, hashedPassword)
         if (!comparePassword) {
-            return next(handleError(404, 'Invalid login credentials....'))
+            return next(handleError(404, 'Invalid Login Credentials....'))
         }
 
         const token = jwt.sign({
@@ -62,7 +61,7 @@ export const Login = async (req, res, next) => {
         res.status(200).json({
             success: true,
             user: newUser,
-            message: 'User Logged In successfully....'
+            message: 'Logged In Successfully....'
         })
 
     } catch (error) {
@@ -76,15 +75,17 @@ export const GoogleLogin = async (req, res, next) => {
         let user
         user = await User.findOne({ email })
         if (!user) {
-            //  create new user 
             const password = Math.random().toString()
             const hashedPassword = bcryptjs.hashSync(password)
             const newUser = new User({
                 name, email, password: hashedPassword, avatar
             })
-
             user = await newUser.save()
-
+        } else {
+            user = await User.findByIdAndUpdate(user._id,
+                { name, avatar },
+                { new: true }
+            )
         }
 
         const token = jwt.sign({
@@ -106,7 +107,27 @@ export const GoogleLogin = async (req, res, next) => {
         res.status(200).json({
             success: true,
             user: newUser,
-            message: 'User Logged In successfully....'
+            message: 'Logged In Successfully....'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+export const Logout = async (req, res, next) => {
+    try {
+
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            path: '/'
+        })
+
+        res.status(200).json({
+            success: true,
+            message: 'Logout Successfully....'
         })
 
     } catch (error) {
