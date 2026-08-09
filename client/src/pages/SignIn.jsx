@@ -10,11 +10,16 @@ import { RouteIndex, RouteSignUp } from '@/helpers/RouteName'
 import { Link, useNavigate } from 'react-router-dom'
 import { showToast } from '@/helpers/showToast'
 import { getEvn } from '@/helpers/getEnv'
+import { useDispatch } from 'react-redux'
+import { setUser } from '@/redux/user/user.slice'
+import GoogleLogin from '@/components/GoogleLogin'
 
 
 const SignIn = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     const formSchema = z.object({
         email: z.string().email(),
@@ -42,6 +47,7 @@ const SignIn = () => {
                 return showToast('error', data.message)
             }
 
+            dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
         } catch (error) {
@@ -53,6 +59,14 @@ const SignIn = () => {
         <div className='flex justify-center items-center h-screen w-screen'>
             <Card className="w-[400px] p-5">
                 <h1 className="text-2xl font-bold text-center mb-5">Login Into Account</h1>
+
+                <div>
+                    <GoogleLogin />
+                    <div className="border mt-10 mb-5 flex justify-center items-center">
+                        <span className="absolute bg-white text-sm font-bold">OR</span>
+                    </div>
+                </div>
+
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         {/* Email  */}

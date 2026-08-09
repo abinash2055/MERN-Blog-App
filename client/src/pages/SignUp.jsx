@@ -62,7 +62,7 @@ const SignUp = () => {
 
         <div>
           <GoogleLogin />
-          <div className="border my-10 flex justify-center items-center">
+          <div className="border mt-10 mb-5 flex justify-center items-center">
             <span className="absolute bg-white text-sm font-bold">OR</span>
           </div>
         </div>
