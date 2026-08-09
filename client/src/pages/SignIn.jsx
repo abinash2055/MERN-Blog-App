@@ -23,7 +23,7 @@ const SignIn = () => {
 
     const formSchema = z.object({
         email: z.string().email(),
-        password: z.string().min(8, "Passwordd must be 8 character long...."),
+        password: z.string().min(8, "Password must be 8 character long...."),
     })
 
     const form = useForm({

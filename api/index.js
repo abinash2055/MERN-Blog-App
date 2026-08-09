@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import mongoose from "mongoose"
 import AuthRoute from './routes/Auth.route.js'
+import UserRoute from "./routes/User.route.js"
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }))
 
 // route setup  
 app.use('/api/auth', AuthRoute)
+app.use('/api/user', UserRoute)
 
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: "mern-blog" }).then(() => console.log("MongoDB Connected Successfully....")).catch(err => console.log("Database connection Failed....", err))
