@@ -178,7 +178,7 @@ const Profile = () => {
                                 />
                             </div>
 
-                            <Button type="submit" className="w-full">Save Changes</Button>
+                            <Button type="submit" className="w-full cursor-pointer">Save Changes</Button>
                         </form>
                     </Form>
 
