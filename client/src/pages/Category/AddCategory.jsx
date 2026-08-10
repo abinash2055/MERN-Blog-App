@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { getEvn } from '@/helpers/getEnv'
 import { Card, CardContent } from '@/components/ui/card'
 import slugify from 'slugify'
-import { useNavigate } from 'react-router-dom'
 import { showToast } from '@/helpers/showToast'
 
 const AddCategory = () => {
