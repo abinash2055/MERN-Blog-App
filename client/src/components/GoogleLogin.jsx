@@ -30,13 +30,7 @@ const GoogleLogin = () => {
                 credentials: 'include',
                 body: JSON.stringify(bodyData)
             })
-            // const response = await fetch(`${
-            // ('VITE_API_BASE_URL')}/auth/google-login`, {
-            //     method: 'post',
-            //     headers: { 'Content-type': 'application/json' },
-            //     credentials: 'include',
-            //     body: JSON.stringify(bodyData)
-            // })
+
             const data = await response.json()
             if (!response.ok) {
                 return showToast('error', data.message)

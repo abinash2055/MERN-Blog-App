@@ -22,6 +22,9 @@ app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }))
 app.use('/api/auth', AuthRoute)
 app.use('/api/user', UserRoute)
 app.use('/api/category', CategoryRoute)
+// app.use('/api/blog', BlogRoute)
+// app.use('/api/comment', CommentRouote)
+// app.use('/api/blog-like', BlogLikeRoute)
 
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: "mern-blog" }).then(() => console.log("MongoDB Connected Successfully....")).catch(err => console.log("Database connection Failed....", err))

@@ -8,7 +8,7 @@ import { GrBlog } from "react-icons/gr";
 import { FaRegComments } from "react-icons/fa6";
 import { LuUsers } from "react-icons/lu";
 import { GoDot } from "react-icons/go";
-import { RouteCategoryDetails } from '@/helpers/RouteName';
+import { RouteBlog, RouteCategoryDetails } from '@/helpers/RouteName';
 
 const AppSidebar = () => {
     return (
@@ -35,7 +35,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <GrBlog />
-                                <Link to="">Blogs</Link>
+                                <Link to={RouteBlog}>Blogs</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
