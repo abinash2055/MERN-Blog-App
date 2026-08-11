@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Link } from 'react-router-dom'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-// import { useFetch } from '@/hooks/useFetch'
-// import { getEvn } from '@/helpers/getEnv'
-// import Loading from '@/components/Loading'
-// import { FiEdit } from "react-icons/fi";
-// import { FaRegTrashAlt } from "react-icons/fa";
-import { RouteBlogAdd } from '@/helpers/RouteName'
+import { useFetch } from '@/hooks/useFetch'
+import { getEvn } from '@/helpers/getEnv'
+import Loading from '@/components/Loading'
+import { FiEdit } from "react-icons/fi";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { RouteBlogAdd, RouteBlogEdit } from '@/helpers/RouteName'
+import { deleteData } from '@/helpers/handleDelete'
+import { showToast } from '@/helpers/showToast'
+import moment from 'moment'
 
 const BlogDetails = () => {
+
+  const [refreshData, setRefreshData] = useState(false)
+  const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/get-all`, {
+    method: 'get',
+    credentials: 'include'
+  }, [refreshData])
+
+  const handleDelete = (id) => {
+    const response = deleteData(`${getEvn('VITE_API_BASE_URL')}/blog/delete/${id}`)
+    if (response) {
+      setRefreshData(!refreshData)
+      showToast('success', 'Data Deleted....')
+    } else {
+      showToast('error', 'Data not Deleted....')
+    }
+  }
+
+
+  if (loading) return <Loading />
+
   return (
    <div>
          <Card>
@@ -39,20 +62,23 @@ const BlogDetails = () => {
                </TableHeader>
    
                <TableBody>
-                 {/* {categoryData && categoryData.category.length > 0 ?
-                   categoryData.category.map(category =>
-                     <TableRow key={category._id}>
-                       <TableCell>{category.name}</TableCell>
-                       <TableCell>{category.slug}</TableCell>
+              {blogData && blogData.blog.length > 0 ?
+                blogData.blog.map(blog =>
+                  <TableRow key={blog._id}>
+                    <TableCell>{blog?.author?.name}</TableCell>
+                    <TableCell>{blog?.category?.name}</TableCell>
+                    <TableCell>{blog?.title}</TableCell>
+                    <TableCell>{blog.slug}</TableCell>
+                    <TableCell>{moment(blog?.createdAt).format("DD-MM-YYYY")}</TableCell>
    
                        <TableCell className="flex gap-3">
                          <Button variant="outline" className="hover:bg-violet-500 hover:text-white" asChild>
-                           <Link to={RouteEditCategory(category._id)}>
+                        <Link to={RouteBlogEdit(blog._id)}>
                              <FiEdit />
                            </Link>
                          </Button>
    
-                         <Button onClick={() => handleDelete(category._id)} variant="outline" className="hover:bg-violet-500 hover:text-white" >
+                      <Button onClick={() => handleDelete(blog._id)} variant="outline" className="hover:bg-violet-500 hover:text-white" >
                            <FaRegTrashAlt />
                          </Button>
                        </TableCell>
@@ -64,7 +90,7 @@ const BlogDetails = () => {
                        Data not found.
                      </TableCell>
                    </TableRow>
-                 } */}
+                 }
                </TableBody>
              </Table>
            </CardContent>

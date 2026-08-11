@@ -14,9 +14,13 @@ import { useFetch } from '@/hooks/useFetch'
 import Dropzone from 'react-dropzone'
 import Editor from '@/components/Editor'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { RouteBlog } from '@/helpers/RouteName'
 
 
 const AddBlog = () => {
+
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user)
 
@@ -60,23 +64,30 @@ const AddBlog = () => {
 
   async function onSubmit(values) {
     try {
-      const newValues = { ...values, author: user._id }
+      const newValues = { ...values, author: user.user._id }
+
+      if (!file) {
+        showToast('error', 'Feature Image Required....')
+      }
+
       const formData = new FormData()
       formData.append("file", file)
-      formData.append("data", JSON.stringify(values))
+      formData.append("data", JSON.stringify(newValues))
 
-      const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/category/add`, {
+      const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog/add`, {
         method: 'post',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(values)
+        credentials: 'include',
+        body: formData
       })
 
       const data = await response.json()
       if (!response.ok) {
         return showToast('error', data.message)
       }
-
       form.reset()
+      setFile()
+      setPreview()
+      navigate(RouteBlog)
       showToast('success', data.message)
     } catch (error) {
       showToast('error', error.message)
@@ -95,6 +106,8 @@ const AddBlog = () => {
     <div>
       <Card className="pt-5">
         <CardContent>
+          <h1 className='text-2xl font-bold mb-4'>Add Blog</h1>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               {/* Category  */}

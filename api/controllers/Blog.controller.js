@@ -28,7 +28,7 @@ export const addBlog = async (req, res, next) => {
             author: data.author,
             category: data.category,
             title: data.title,
-            slug: `${data.slug}-${Math.round(Math.random() * 100000)}`,
+            slug: data.slug,
             featuredImage: featuredImage,
             blogContent: encode(data.blogContent),
         })
@@ -46,74 +46,74 @@ export const addBlog = async (req, res, next) => {
 }
 
 export const editBlog = async (req, res, next) => {
-    // try {
-    //     const { blogid } = req.params
-    //     const blog = await Blog.findById(blogid).populate('category', 'name')
-    //     if (!blog) {
-    //         next(handleError(404, 'Data not found.'))
-    //     }
-    //     res.status(200).json({
-    //         blog
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+    try {
+        const { blogid } = req.params
+        const blog = await Blog.findById(blogid).populate('category', 'name')
+        if (!blog) {
+            next(handleError(404, 'Data not found.'))
+        }
+        res.status(200).json({
+            blog
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const updateBlog = async (req, res, next) => {
-    // try {
-    //     const { blogid } = req.params
-    //     const data = JSON.parse(req.body.data)
+    try {
+        const { blogid } = req.params
+        const data = JSON.parse(req.body.data)
 
-    //     const blog = await Blog.findById(blogid)
+        const blog = await Blog.findById(blogid)
 
-    //     blog.category = data.category
-    //     blog.title = data.title
-    //     blog.slug = data.slug
-    //     blog.blogContent = encode(data.blogContent)
+        blog.category = data.category
+        blog.title = data.title
+        blog.slug = data.slug
+        blog.blogContent = encode(data.blogContent)
 
-    //     let featuredImage = blog.featuredImage
+        let featuredImage = blog.featuredImage
 
-    //     if (req.file) {
-    //         // Upload an image
-    //         const uploadResult = await cloudinary.uploader
-    //             .upload(
-    //                 req.file.path,
-    //                 { folder: 'yt-mern-blog', resource_type: 'auto' }
-    //             )
-    //             .catch((error) => {
-    //                 next(handleError(500, error.message))
-    //             });
+        if (req.file) {
+            // Upload an image
+            const uploadResult = await cloudinary.uploader
+                .upload(
+                    req.file.path,
+                    { folder: 'MERN-Blog-App', resource_type: 'auto' }
+                )
+                .catch((error) => {
+                    next(handleError(500, error.message))
+                });
 
-    //         featuredImage = uploadResult.secure_url
-    //     }
+            featuredImage = uploadResult.secure_url
+        }
 
-    //     blog.featuredImage = featuredImage
+        blog.featuredImage = featuredImage
 
-    //     await blog.save()
+        await blog.save()
 
 
-    //     res.status(200).json({
-    //         success: true,
-    //         message: 'Blog updated successfully.'
-    //     })
+        res.status(200).json({
+            success: true,
+            message: 'Blog Updated Successfully....'
+        })
 
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const deleteBlog = async (req, res, next) => {
-    // try {
-    //     const { blogid } = req.params
-    //     await Blog.findByIdAndDelete(blogid)
-    //     res.status(200).json({
-    //         success: true,
-    //         message: 'Blog Deleted successfully.',
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+    try {
+        const { blogid } = req.params
+        await Blog.findByIdAndDelete(blogid)
+        res.status(200).json({
+            success: true,
+            message: 'Blog Deleted Successfully....',
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const showAllBlog = async (req, res, next) => {
@@ -131,6 +131,14 @@ export const showAllBlog = async (req, res, next) => {
     // } catch (error) {
     //     next(handleError(500, error.message))
     // }
+
+    try {
+        const blog = await Blog.find().populate("author", "name").populate("category", "name").sort({ createdAt: -1 }).lean().exec()
+
+        res.status(200).json({ blog })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const getBlog = async (req, res, next) => {
