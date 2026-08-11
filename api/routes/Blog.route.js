@@ -1,5 +1,5 @@
 import express from 'express'
-import { addBlog, deleteBlog, editBlog, showAllBlog, updateBlog } from '../controllers/Blog.controller.js'
+import { addBlog, deleteBlog, editBlog, getBlog, showAllBlog, updateBlog } from '../controllers/Blog.controller.js'
 import upload from '../config/multer.js'
 // import { authenticate } from '../middleware/authenticate.js'
 
@@ -11,7 +11,7 @@ BlogRoute.put('/update/:blogid', upload.single('file'), updateBlog)
 BlogRoute.delete('/delete/:blogid', deleteBlog)
 BlogRoute.get('/get-all', showAllBlog)
 
-// BlogRoute.get('/get-blog/:slug', getBlog)
+BlogRoute.get('/get-blog/:slug', getBlog)
 // BlogRoute.get('/get-related-blog/:category/:blog', getRelatedBlog)
 // BlogRoute.get('/get-blog-by-category/:category', getBlogByCategory)
 // BlogRoute.get('/search', search)

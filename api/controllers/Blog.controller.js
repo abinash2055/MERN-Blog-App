@@ -133,7 +133,7 @@ export const showAllBlog = async (req, res, next) => {
     // }
 
     try {
-        const blog = await Blog.find().populate("author", "name").populate("category", "name").sort({ createdAt: -1 }).lean().exec()
+        const blog = await Blog.find().populate("author", "name avatar role").populate("category", "name slug").sort({ createdAt: -1 }).lean().exec()
 
         res.status(200).json({ blog })
     } catch (error) {
@@ -142,15 +142,16 @@ export const showAllBlog = async (req, res, next) => {
 }
 
 export const getBlog = async (req, res, next) => {
-    // try {
-    //     const { slug } = req.params
-    //     const blog = await Blog.findOne({ slug }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
-    //     res.status(200).json({
-    //         blog
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+    try {
+        const { slug } = req.params
+        const blog = await Blog.findOne({ slug }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
+
+        res.status(200).json({
+            blog
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const getRelatedBlog = async (req, res, next) => {

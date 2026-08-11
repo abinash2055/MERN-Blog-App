@@ -9,6 +9,7 @@ import usericon from '@/assets/images/user.png'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { RouteBlogDetails } from '@/helpers/RouteName'
+
 const BlogCard = ({ props }) => {
  
     return (
