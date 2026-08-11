@@ -1,14 +1,14 @@
-// import express from 'express'
-// import { addcomment, commentCount, deleteComment, getAllComments, getComments } from '../controllers/Comment.controller.js'
+import express from 'express'
+import { addcomment, getComments } from '../controllers/Comment.controller.js'
 // import { authenticate } from '../middleware/authenticate.js'
 
-// const CommentRouote = express.Router()
+const CommentRoute = express.Router()
 
-// CommentRouote.post('/add', authenticate, addcomment)
-// CommentRouote.get('/get/:blogid', getComments)
-// CommentRouote.get('/get-count/:blogid', commentCount)
-// CommentRouote.get('/get-all-comment', authenticate, getAllComments)
-// CommentRouote.delete('/delete/:commentid', authenticate, deleteComment)
+CommentRoute.post('/add', addcomment)
+CommentRoute.get('/get/:blogid', getComments)
+// CommentRoute.get('/get-count/:blogid', commentCount)
+// CommentRoute.get('/get-all-comment', getAllComments)
+// CommentRoute.delete('/delete/:commentid', deleteComment)
 
 
-// export default CommentRouote
+export default CommentRoute

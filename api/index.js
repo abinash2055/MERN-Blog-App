@@ -7,6 +7,7 @@ import AuthRoute from './routes/Auth.route.js'
 import UserRoute from "./routes/User.route.js"
 import CategoryRoute from "./routes/Category.route.js"
 import BlogRoute from "./routes/Blog.route.js"
+import CommentRoute from "./routes/Comment.route.js"
 
 dotenv.config()
 
@@ -22,9 +23,11 @@ app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }))
 // route setup  
 app.use('/api/auth', AuthRoute)
 app.use('/api/user', UserRoute)
+
 app.use('/api/category', CategoryRoute)
 app.use('/api/blog', BlogRoute)
-// app.use('/api/comment', CommentRouote)
+
+app.use('/api/comment', CommentRoute)
 // app.use('/api/blog-like', BlogLikeRoute)
 
 

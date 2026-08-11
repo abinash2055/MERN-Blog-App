@@ -58,11 +58,7 @@ const SingleBlogDetails = () => {
 
                     </div>
                 </>
-
             }
-            <div className='border rounded md:w-[30%] w-full p-5'>
-                <RelatedBlog props={{ category: category, currentBlog: blog }} />
-            </div>
         </div>
     )
 }

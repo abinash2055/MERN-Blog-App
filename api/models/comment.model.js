@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
-    user: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
@@ -19,4 +19,5 @@ const commentSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 const Comment = mongoose.model('Comment', commentSchema, 'comments')
+
 export default Comment 

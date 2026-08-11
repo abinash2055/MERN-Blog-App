@@ -1,38 +1,39 @@
-// import { handleError } from "../helpers/handleError.js"
-// import Comment from "../models/comment.model.js"
+import { handleError } from "../helpers/handleError.js"
+import Comment from "../models/comment.model.js"
 
 export const addcomment = async (req, res, next) => {
-    // try {
-    //     const { user, blogid, comment } = req.body
-    //     const newComment = new Comment({
-    //         user: user,
-    //         blogid: blogid,
-    //         comment: comment
-    //     })
+    try {
+        const { author, blogid, comment } = req.body
 
-    //     await newComment.save()
-    //     res.status(200).json({
-    //         success: true,
-    //         message: 'Comment submited.',
-    //         comment: newComment
-    //     })
+        const newComment = new Comment({
+            author: author,
+            blogid: blogid,
+            comment: comment
+        })
 
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+        await newComment.save()
+        res.status(200).json({
+            success: true,
+            message: 'Comment Submitted....',
+            comment: newComment
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const getComments = async (req, res, next) => {
-    // try {
-    //     const { blogid } = req.params
-    //     const comments = await Comment.find({ blogid }).populate('user', 'name avatar').sort({ createdAt: -1 }).lean().exec()
+    try {
+        const { blogid } = req.params
+        const comments = await Comment.find({ blogid }).populate("author", "name avatar").sort({ createdAt: -1 }).lean().exec()
 
-    //     res.status(200).json({
-    //         comments
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+        res.status(200).json({
+            comments
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 
