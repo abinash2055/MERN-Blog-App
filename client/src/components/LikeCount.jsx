@@ -7,15 +7,18 @@ import { useSelector } from 'react-redux';
 import { FaHeart } from "react-icons/fa";
 
 const LikeCount = ({ props }) => {
+
     const [likeCount, setLikeCount] = useState(0)
     const [hasLiked, setHasLiked] = useState(false)
-    const user = useSelector(state => state.user)
 
-    const { data: blogLikeCount, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog-like/get-like/${props.blogid}`, {
+    const user = useSelector(state => state.user)
+    const userId = user?.isLoggedIn ? user.user._id : ''
+
+    const { data: blogLikeCount, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog-like/get-like/${props.blogid}${userId ? `/${userId}` : ''}`, {
         method: 'get',
         credentials: 'include',
     })
- 
+
     useEffect(() => {
         if (blogLikeCount) {
             setLikeCount(blogLikeCount.likecount)
@@ -26,18 +29,19 @@ const LikeCount = ({ props }) => {
     const handleLike = async () => {
         try {
             if (!user.isLoggedIn) {
-                return showToast('error', 'Please login into your account.')
+                return showToast('error', 'Please login into your account....')
             }
 
             const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog-like/do-like`, {
                 method: 'post',
                 credentials: 'include',
                 headers: { 'Content-type': "application/json" },
-                body: JSON.stringify({ user: user.user._id, blogid: props.blogid })
+                body: JSON.stringify({ userid: user.user._id, blogid: props.blogid })
             })
 
             if (!response.ok) {
-                showToast('error', response.statusText)
+                const data = await response.json()
+                return showToast('error', data.message || response.statusText)
             }
             const responseData = await response.json()
             setLikeCount(responseData.likecount)

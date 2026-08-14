@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom'
 import { decode } from 'entities'
 import Comment from '@/components/Comment'
 import moment from 'moment'
+import CommentCount from '@/components/CommentCount'
+import LikeCount from '@/components/LikeCount'
 
 const SingleBlogDetails = () => {
 
@@ -39,6 +41,12 @@ const SingleBlogDetails = () => {
                                     <p className='font-bold'>{data.blog.author.name}</p>
                                     <p>Date: {moment(data.blog.createdAt).format('DD-MM-YYYY')}</p>
                                 </div>
+                            </div>
+
+                            {/* Comment and Like Count */}
+                            <div className="flex justify-between items-center gap-5">
+                                <LikeCount props={{ blogid: data.blog._id }} />
+                                <CommentCount props={{ blogid: data.blog._id }} />
                             </div>
                         </div>
 

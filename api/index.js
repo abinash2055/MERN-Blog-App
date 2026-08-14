@@ -8,6 +8,7 @@ import UserRoute from "./routes/User.route.js"
 import CategoryRoute from "./routes/Category.route.js"
 import BlogRoute from "./routes/Blog.route.js"
 import CommentRoute from "./routes/Comment.route.js"
+import BlogLikeRoute from "./routes/Bloglike.route.js"
 
 dotenv.config()
 
@@ -28,7 +29,7 @@ app.use('/api/category', CategoryRoute)
 app.use('/api/blog', BlogRoute)
 
 app.use('/api/comment', CommentRoute)
-// app.use('/api/blog-like', BlogLikeRoute)
+app.use('/api/blog-like', BlogLikeRoute)
 
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: "mern-blog" }).then(() => console.log("MongoDB Connected Successfully....")).catch(err => console.log("Database connection Failed....", err))
