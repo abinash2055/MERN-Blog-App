@@ -36,13 +36,13 @@ export const RouteBlogDetails = (category, blog) => {
 }
 
 
-// export const RouteBlogByCategory = (category) => {
-//     if (!category) {
-//         return '/blog/:category'
-//     } else {
-//         return `/blog/${category}`
-//     }
-// }
+export const RouteBlogByCategory = (category) => {
+    if (!category) {
+        return '/blog/:category'
+    } else {
+        return `/blog/${category}`
+    }
+}
 
 
 

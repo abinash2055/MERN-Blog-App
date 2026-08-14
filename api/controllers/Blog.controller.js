@@ -117,21 +117,6 @@ export const deleteBlog = async (req, res, next) => {
 }
 
 export const showAllBlog = async (req, res, next) => {
-    // try {
-    //     const user = req.user
-    //     let blog;
-    //     if (user.role === 'admin') {
-    //         blog = await Blog.find().populate('author', 'name avatar role').populate('category', 'name slug').sort({ createdAt: -1 }).lean().exec()
-    //     } else {
-    //         blog = await Blog.find({ author: user._id }).populate('author', 'name avatar role').populate('category', 'name slug').sort({ createdAt: -1 }).lean().exec()
-    //     }
-    //     res.status(200).json({
-    //         blog
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
-
     try {
         const blog = await Blog.find().populate("author", "name avatar role").populate("category", "name slug").sort({ createdAt: -1 }).lean().exec()
 
@@ -175,22 +160,23 @@ export const getRelatedBlog = async (req, res, next) => {
 }
 
 export const getBlogByCategory = async (req, res, next) => {
-    // try {
-    //     const { category } = req.params
+    try {
+        const { category } = req.params
 
-    //     const categoryData = await Category.findOne({ slug: category })
-    //     if (!categoryData) {
-    //         return next(404, 'Category data not found.')
-    //     }
-    //     const categoryId = categoryData._id
-    //     const blog = await Blog.find({ category: categoryId }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
-    //     res.status(200).json({
-    //         blog,
-    //         categoryData
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+        const categoryData = await Category.findOne({ slug: category })
+        if (!categoryData) {
+            return next(404, 'Category data not found....')
+        }
+
+        const categoryId = categoryData._id
+
+        const blog = await Blog.find({ category: categoryId }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
+        res.status(200).json({
+            blog, categoryData
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const search = async (req, res, next) => {

@@ -8,7 +8,7 @@ import { GrBlog } from "react-icons/gr";
 import { FaRegComments } from "react-icons/fa6";
 import { LuUsers } from "react-icons/lu";
 import { GoDot } from "react-icons/go";
-import { RouteBlog, RouteCategoryDetails } from '@/helpers/RouteName';
+import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails } from '@/helpers/RouteName';
 import { useFetch } from '@/hooks/useFetch';
 import { getEvn } from '@/helpers/getEnv';
 
@@ -70,7 +70,7 @@ const AppSidebar = () => {
                             && categoryData.category.map(category => <SidebarMenuItem key={category._id}>
                                 <SidebarMenuButton>
                                     <GoDot />
-                                    <Link to="">{category.name}</Link>
+                                    <Link to={RouteBlogByCategory(category.slug)}>{category.name}</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>)
                         }
