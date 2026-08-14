@@ -9,6 +9,7 @@ import Comment from '@/components/Comment'
 import moment from 'moment'
 import CommentCount from '@/components/CommentCount'
 import LikeCount from '@/components/LikeCount'
+import RelatedBlog from '@/components/RelatedBlog'
 
 const SingleBlogDetails = () => {
 
@@ -65,7 +66,9 @@ const SingleBlogDetails = () => {
                 </>
             }
 
-            <div className='border rounded w-[30%]'></div>
+            <div className='border rounded w-[30%] p-5'>
+                <RelatedBlog props={{ category: category, currentBlog: blog }} />
+            </div>
         </div>
     )
 }
