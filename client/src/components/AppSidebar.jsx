@@ -8,7 +8,7 @@ import { GrBlog } from "react-icons/gr";
 import { FaRegComments } from "react-icons/fa6";
 import { LuUsers } from "react-icons/lu";
 import { GoDot } from "react-icons/go";
-import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails, RouteCommentDetails } from '@/helpers/RouteName';
+import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails, RouteCommentDetails, RouteUser } from '@/helpers/RouteName';
 import { useFetch } from '@/hooks/useFetch';
 import { getEvn } from '@/helpers/getEnv';
 
@@ -56,7 +56,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <LuUsers />
-                                <Link to="">Users</Link>
+                                <Link to={RouteUser}>Users</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>

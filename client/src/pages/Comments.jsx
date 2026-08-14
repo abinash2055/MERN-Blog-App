@@ -8,6 +8,7 @@ import Loading from '@/components/Loading'
 import { FaRegTrashAlt } from "react-icons/fa";
 import { deleteData } from '@/helpers/handleDelete'
 import { showToast } from '@/helpers/showToast'
+import moment from 'moment'
 
 const Comments = () => {
 
@@ -42,7 +43,7 @@ const Comments = () => {
                                 <TableHead>Blog</TableHead>
                                 <TableHead>Commented By</TableHead>
                                 <TableHead>Comment</TableHead>
-
+                                <TableHead>Dated</TableHead>
                                 <TableHead>Action</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -54,6 +55,7 @@ const Comments = () => {
                                         <TableCell>{comment?.blogid?.title}</TableCell>
                                         <TableCell>{comment?.user?.name}</TableCell>
                                         <TableCell>{comment?.comment}</TableCell>
+                                        <TableCell>{moment(comment.createdAt).format('DD-MM-YYYY')}</TableCell>
 
                                         <TableCell className="flex gap-3">
                                             <Button onClick={() => handleDelete(comment._id)} variant="outline" className="hover:bg-violet-500 hover:text-white">
