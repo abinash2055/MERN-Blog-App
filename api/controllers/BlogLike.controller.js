@@ -17,8 +17,16 @@ export const doLike = async (req, res, next) => {
 
         const likecount = await BlogLike.countDocuments({ blogid })
 
+        let isUserliked = false
+        if (userid) {
+            const getuserlike = await BlogLike.countDocuments({ blogid, userid })
+            if (getuserlike > 0) {
+                isUserliked = true
+            }
+        }
+
         res.status(200).json({
-            likecount
+            likecount, isUserliked
         })
 
     } catch (error) {
@@ -41,6 +49,7 @@ export const likeCount = async (req, res, next) => {
 
         res.status(200).json({
             likecount,
+            isUserliked
         })
     } catch (error) {
         next(handleError(500, error.message))

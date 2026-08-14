@@ -45,7 +45,7 @@ const LikeCount = ({ props }) => {
             }
             const responseData = await response.json()
             setLikeCount(responseData.likecount)
-            setHasLiked(!hasLiked)
+            setHasLiked(responseData.isUserliked)
         } catch (error) {
             showToast('error', error.message)
         }

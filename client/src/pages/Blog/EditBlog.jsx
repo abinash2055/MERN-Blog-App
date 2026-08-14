@@ -208,7 +208,7 @@ const EditBlog = () => {
                 )} />
               </div>
 
-              <Button type="submit" className="w-full">Update Blog</Button>
+              <Button type="submit" className="w-full cursor-pointer">Update Blog</Button>
             </form>
           </Form>
         </CardContent>
