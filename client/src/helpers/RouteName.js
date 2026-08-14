@@ -26,7 +26,6 @@ export const RouteBlogEdit = (blogid) => {
     }
 }
 
-
 export const RouteBlogDetails = (category, blog) => {
     if (!category || !blog) {
         return '/blog/:category/:blog'
@@ -34,7 +33,6 @@ export const RouteBlogDetails = (category, blog) => {
         return `/blog/${category}/${blog}`
     }
 }
-
 
 export const RouteBlogByCategory = (category) => {
     if (!category) {
@@ -44,15 +42,13 @@ export const RouteBlogByCategory = (category) => {
     }
 }
 
-
-
-// export const RouteSearch = (q) => {
-//     if (q) {
-//         return `/search?q=${q}`
-//     } else {
-//         return `/search`
-//     }
-// }
+export const RouteSearch = (q) => {
+    if (q) {
+        return `/search?q=${q}`
+    } else {
+        return `/search`
+    }
+}
 
 
 // export const RouteCommentDetails = '/comments'

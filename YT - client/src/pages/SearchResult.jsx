@@ -2,6 +2,7 @@ import BlogCard from '@/components/BlogCard'
 import { getEvn } from '@/helpers/getEnv'
 import { useFetch } from '@/hooks/useFetch'
 import React from 'react'
+import Loading from '@/components/Loading'
 import { useSearchParams } from 'react-router-dom'
 
 const SearchResult = () => {
@@ -11,6 +12,8 @@ const SearchResult = () => {
         method: 'get',
         credentials: 'include'
     })
+
+    if (loading) return <Loading />
 
     return (
         <>
