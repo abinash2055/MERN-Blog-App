@@ -6,7 +6,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { decode } from 'entities'
 import Comment from '@/components/Comment'
-import CommentList from '@/components/CommentList'
+import moment from 'moment'
 
 const SingleBlogDetails = () => {
 
@@ -34,7 +34,11 @@ const SingleBlogDetails = () => {
                                 <Avatar>
                                     <AvatarImage src={data.blog.author.avatar} />
                                 </Avatar>
-                                <span>{data.blog.author.name}</span>
+
+                                <div>
+                                    <p className='font-bold'>{data.blog.author.name}</p>
+                                    <p>Date: {moment(data.blog.createdAt).format('DD-MM-YYYY')}</p>
+                                </div>
                             </div>
                         </div>
 

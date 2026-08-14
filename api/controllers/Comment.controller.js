@@ -38,16 +38,16 @@ export const getComments = async (req, res, next) => {
 
 
 export const commentCount = async (req, res, next) => {
-    // try {
-    //     const { blogid } = req.params
-    //     const commentCount = await Comment.countDocuments({ blogid })
+    try {
+        const { blogid } = req.params
+        const commentCount = await Comment.countDocuments({ blogid })
 
-    //     res.status(200).json({
-    //         commentCount
-    //     })
-    // } catch (error) {
-    //     next(handleError(500, error.message))
-    // }
+        res.status(200).json({
+            commentCount
+        })
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
 }
 
 export const getAllComments = async (req, res, next) => {
