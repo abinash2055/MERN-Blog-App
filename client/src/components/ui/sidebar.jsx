@@ -155,6 +155,9 @@ function Sidebar({
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+        <SheetTitle className="hidden"></SheetTitle>
+        <SheetDescription className="hidden"></SheetDescription>
+
         <SheetContent
           dir={dir}
           data-sidebar="sidebar"

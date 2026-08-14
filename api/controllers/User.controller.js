@@ -30,7 +30,7 @@ export const updateUser = async (req, res, next) => {
         if (!user) {
             return next(handleError(404, 'User not Found....'))
         }
-        
+
         user.name = data.name
         user.email = data.email
         user.bio = data.bio
@@ -66,7 +66,7 @@ export const updateUser = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'Data Updated....',
+            message: 'Profile Updated....',
             user: newUser
         })
     } catch (error) {

@@ -25,11 +25,11 @@ const SingleBlogDetails = () => {
     if (error) return <div className='text-red-500'>Error: {error.message}</div>
 
     return (
-        <div className='flex justify-between gap-20'>
+        <div className='md:flex-nowrap flex-wrap flex justify-between gap-20'>
 
             {data && data.blog &&
                 <>
-                    <div className='border rounded w-[70%] p-5'>
+                    <div className='border rounded md:w-[70%] w-full p-5'>
                         <h1 className='text-2xl font-bold mb-5'>{data.blog.title}</h1>
 
                         <div className="flex justify-between items-center">
@@ -66,7 +66,7 @@ const SingleBlogDetails = () => {
                 </>
             }
 
-            <div className='border rounded w-[30%] p-5'>
+            <div className='border rounded md:w-[30%] w-full p-5'>
                 <RelatedBlog props={{ category: category, currentBlog: blog }} />
             </div>
         </div>
