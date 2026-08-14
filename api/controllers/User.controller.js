@@ -44,7 +44,14 @@ export const updateUser = async (req, res, next) => {
             try {
                 const uploadResult = await cloudinary.uploader
                     .upload(req.file.path,
-                        { folder: 'MERN-Blog-App', resource_type: 'auto' }
+                        {
+                            folder: 'MERN-Blog-App',
+                            resource_type: 'auto',
+                            transformation: [
+                                { width: 200, height: 200, crop: 'fill', gravity: 'auto' },
+                                { quality: 'auto', fetch_format: 'auto' }
+                            ]
+                        }
                     )
                 user.avatar = uploadResult.secure_url
             } catch (error) {

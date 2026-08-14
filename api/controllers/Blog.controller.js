@@ -15,7 +15,13 @@ export const addBlog = async (req, res, next) => {
             const uploadResult = await cloudinary.uploader
                 .upload(
                     req.file.path,
-                    { folder: 'MERN-Blog-App', resource_type: 'auto' }
+                    {
+                        folder: 'MERN-Blog-App',
+                        resource_type: 'auto',
+                        transformation: [
+                            { quality: 'auto', fetch_format: 'auto' }
+                        ]
+                    }
                 )
                 .catch((error) => {
                     next(handleError(500, error.message))
@@ -79,7 +85,13 @@ export const updateBlog = async (req, res, next) => {
             const uploadResult = await cloudinary.uploader
                 .upload(
                     req.file.path,
-                    { folder: 'MERN-Blog-App', resource_type: 'auto' }
+                    {
+                        folder: 'MERN-Blog-App',
+                        resource_type: 'auto',
+                        transformation: [
+                            { quality: 'auto', fetch_format: 'auto' }
+                        ]
+                    }
                 )
                 .catch((error) => {
                     next(handleError(500, error.message))

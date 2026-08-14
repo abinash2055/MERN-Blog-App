@@ -44,7 +44,6 @@ const User = () => {
                                 <TableHead>Email</TableHead>
                                 <TableHead>Avatar</TableHead>
                                 <TableHead>Dated</TableHead>
-                                <TableHead>Email</TableHead>
 
                                 <TableHead>Action</TableHead>
                             </TableRow>
@@ -59,7 +58,7 @@ const User = () => {
                                         <TableCell>{user.email}</TableCell>
 
                                         <TableCell>
-                                            <img src={user.avatar || usericon} className='w-10' />
+                                            <img src={user.avatar || usericon} className='w-10 h-10 rounded-full object-cover' loading="lazy" decoding="async" />
                                         </TableCell>
 
                                         <TableCell>{moment(user.createdAt).format('DD-MM-YYYY')}</TableCell>

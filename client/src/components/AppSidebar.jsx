@@ -8,11 +8,14 @@ import { GrBlog } from "react-icons/gr";
 import { FaRegComments } from "react-icons/fa6";
 import { LuUsers } from "react-icons/lu";
 import { GoDot } from "react-icons/go";
-import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails, RouteCommentDetails, RouteUser } from '@/helpers/RouteName';
+import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails, RouteCommentDetails, RouteIndex, RouteUser } from '@/helpers/RouteName';
 import { useFetch } from '@/hooks/useFetch';
 import { getEvn } from '@/helpers/getEnv';
+import { useSelector } from 'react-redux';
 
 const AppSidebar = () => {
+
+    const user = useSelector(state => state.user)
 
     const { data: categoryData } = useFetch(`${getEvn('VITE_API_BASE_URL')}/category/all-category`, {
         method: 'get',
@@ -32,33 +35,54 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <IoHomeOutline />
-                                <Link to="">Home</Link>
+                                <Link to={RouteIndex}>Home</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <BiCategoryAlt />
-                                <Link to={RouteCategoryDetails}>Category</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <GrBlog />
-                                <Link to={RouteBlog}>Blogs</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <FaRegComments />
-                                <Link to={RouteCommentDetails}>Comments</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <LuUsers />
-                                <Link to={RouteUser}>Users</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
+
+                        {/* Fort Logged In */}
+                        {user && user.isLoggedIn ?
+                            <>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton>
+                                        <GrBlog />
+                                        <Link to={RouteBlog}>Blogs</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton>
+                                        <FaRegComments />
+                                        <Link to={RouteCommentDetails}>Comments</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </>
+                            :
+                            <></>
+                        }
+
+                        {/* Fort Logged In by Admin */}
+                        {user && user.isLoggedIn && user.user.role === "admin" ?
+                            <>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton>
+                                        <BiCategoryAlt />
+                                        <Link to={RouteCategoryDetails}>Category</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+
+
+
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton>
+                                        <LuUsers />
+                                        <Link to={RouteUser}>Users</Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </>
+                            :
+                            <></>
+                        }
+
                     </SidebarMenu>
                 </SidebarGroup>
 

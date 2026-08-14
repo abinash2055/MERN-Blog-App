@@ -17,6 +17,8 @@ import BlogByCategory from './pages/Blog/BlogByCategory'
 import SearchResult from './pages/SearchResult'
 import Comments from './pages/Comments'
 import User from './pages/User'
+import AuthRouteProtection from './components/AuthRouteProtection'
+import OnlyAdminAllowed from './components/OnlyAdminAllowed'
 
 
 const App = () => {
@@ -26,26 +28,46 @@ const App = () => {
         <Route path={RouteIndex} element={<Layout />}>
           <Route index element={<Index />} />
 
-          <Route path={RouteProfile} element={<Profile />} />
 
-            {/* Category PAges */}
-          <Route path={RouteAddCategory} element={<AddCategory />} />
-          <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
-          <Route path={RouteEditCategory()} element={<EditCategory />} />
 
           {/* Blog Pages */}
-          <Route path={RouteBlogAdd} element={<AddBlog />} />
-          <Route path={RouteBlog} element={<BlogDetails />} />
-          <Route path={RouteBlogEdit()} element={<EditBlog />} />
           <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
+
+          {/* Search */}
           <Route path={RouteSearch()} element={<SearchResult />} />
-          <Route path={RouteCommentDetails} element={<Comments />} />
-          <Route path={RouteUser} element={<User />} />
+
+
+          {/* Proctected by Login */}
+          <Route element={<AuthRouteProtection />}>
+            {/* Profile */}
+            <Route path={RouteProfile} element={<Profile />} />
+
+            {/* Blog Pages */}
+            <Route path={RouteBlogAdd} element={<AddBlog />} />
+            <Route path={RouteBlog} element={<BlogDetails />} />
+            <Route path={RouteBlogEdit()} element={<EditBlog />} />
+
+            {/* Comments */}
+            <Route path={RouteCommentDetails} element={<Comments />} />
+          </Route>
+
+
+          {/* Proctected by Admin */}
+          <Route element={<OnlyAdminAllowed />}>
+            {/* Category Pages */}
+            <Route path={RouteAddCategory} element={<AddCategory />} />
+            <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
+            <Route path={RouteEditCategory()} element={<EditCategory />} />
+
+            {/* Users */}
+            <Route path={RouteUser} element={<User />} />
+          </Route>
+
         </Route>
 
-          <Route path={RouteSignIn} element={<SignIn />} />
-          <Route path={RouteSignUp} element={<SignUp />} />
+        <Route path={RouteSignIn} element={<SignIn />} />
+        <Route path={RouteSignUp} element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   )
