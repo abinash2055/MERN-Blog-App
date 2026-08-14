@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 import { Link, useNavigate } from 'react-router-dom'
 import { MdLogin } from "react-icons/md";
 import SearchBox from './SearchBox';
-import { RouteIndex, RouteProfile, RouteSignIn } from '@/helpers/RouteName';
+import { RouteBlogAdd, RouteIndex, RouteProfile, RouteSignIn } from '@/helpers/RouteName';
 import { useDispatch, useSelector } from 'react-redux';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -83,7 +83,7 @@ const Topbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="cursor pointer">
-                  <Link to="" className="flex items-center gap-2 px-2">
+                  <Link to={RouteBlogAdd} className="flex items-center gap-2 px-2">
                     <FaPlus />
                     Create Blog
                   </Link>

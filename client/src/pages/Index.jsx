@@ -6,7 +6,7 @@ import React from 'react'
 
 const Index = () => {
 
-  const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/get-all`, {
+  const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/blogs`, {
     method: 'get',
     credentials: 'include'
   })

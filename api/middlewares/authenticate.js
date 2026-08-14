@@ -3,13 +3,20 @@ import jwt from 'jsonwebtoken'
 export const authenticate = async (req, res, next) => {
     try {
         const token = req.cookies.access_token
+
         if (!token) {
-            return next(403, 'Unathorized')
+            const err = new Error('Unauthorized')
+            err.statusCode = 403
+            return next(err)
         }
+
         const decodeToken = jwt.verify(token, process.env.JWT_SECRET)
         req.user = decodeToken
+
         next()
     } catch (error) {
-        next(500, error.message)
+        const err = new Error('Unauthorized')
+        err.statusCode = 401
+        return next(err)
     }
 }
