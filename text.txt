@@ -1,3 +1,87 @@
 
+To Run the Blog App in Deployment as Production process
 
-Time ---> 10.11.42
+
+# STEP -- A
+
+1. Create vercel.json inside api and client folder.
+2. Write code as I had written in respective vercel.json file
+3. Push to GitHub
+
+-------> STEP -- A is already DONE.
+
+
+
+#. STEP -- B
+
+1. Open vercel and create new Project.
+2. Select MERN-Blog App github Repo and import it.
+3. write your project name for api.
+4. Edit Root Directory and select "api".
+5. Copy All env file data and add in Environment variable and paste it.
+6. But change { NODE_ENV } from "development" to "production".
+7. Click on Deploy.
+8. Copy the <backend-api-url-from-vercel> after deployment completion.
+
+
+
+#. STEP -- C
+
+1. Again Open vercel and create new Project.
+2. Select MERN-Blog App github Repo and import it.
+3. write your project name for client.
+4. Edit Framework and select "Vite".
+5. Edit Root Directory and select "client".
+6. Copy All env file data and add in Environment variable and paste it.
+
+7. Now we need to change 
+        VITE_API_BASE_URL = "http://localhost:3000/api" 
+                        to
+        VITE_API_BASE_URL = "<backend-api-url-from-vercel>/api" 
+
+8. Click on Deploy.
+9. Copy the <frontend-client-url-from-vercel> after deployment completion.
+
+
+
+# STEP -- D
+
+1. Open backend api project.
+2. Go to setting
+3. Select Environment setting.
+4. Click on Production option.
+5. We need to Edit 
+        FRONTEND_URL = "http://localhost:5173" 
+                    to
+        FRONTEND_URL = "<frontend-client-url-from-vercel>" 
+          REMEMBER TO REMOVE "/" FROM END.
+        
+6. Click on Save.
+7. Click on Redeploy button.
+
+
+
+# STEP -- E
+
+1. Open Firebase .
+2. Login into Firebase.\
+3. Select "MERN-Blog" project.
+4. Select Authentication option.
+5. Then select Sign-in method option.
+6. Then go to setting.
+7. Go to Authorized Domain.
+8. Click on "Add Domain".
+9. paste <<frontend-client-url-from-vercel>.
+    EG: https://mern-blog.vercel.app as to remove "https://"
+            To
+        mern-blog.vercel.app
+
+10. Click on Add.
+
+
+# STEP -- F
+1. Again Redeploy backend "api" project.
+
+
+# STEP -- G
+1. Again Redeploy frontend "client" project.
